@@ -22,7 +22,7 @@ export const registerController = async (req, res) => {
       const encrptpassword = await hashedPassword(password);
 
     //   create new user in database
-      const user = new userModel({
+      const user =await new userModel({
         name,
         email,
         phone,

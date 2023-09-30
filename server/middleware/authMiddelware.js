@@ -7,6 +7,7 @@ dotenv.config();
     try {
     const decode=JWT.verify(req.headers.token,process.env.SERET_KEY);
     req.user=decode;
+   
       next();
     } catch (error) {
         return res.status(500).send({
@@ -19,7 +20,8 @@ dotenv.config();
 
  export const isAdmin=async(req,res,next)=>{
     try {
-        const user =await userModel.findOne(req.user.id);
+       
+        const user =await userModel.findById(req.user._id);
     if(user.role===0){
         return res.status(200).send({
             success:false,
