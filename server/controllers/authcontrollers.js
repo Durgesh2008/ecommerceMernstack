@@ -6,9 +6,9 @@ dotenv.config();
 // Regiter controllers-----------------------------------------------
 export const registerController = async (req, res) => {
   try {
-    const { name, email, password, phone, address } = req.body;
+    const { name, email, password, phone, address,answer } = req.body;
     // form validation
-    if (name && email && password && phone && address) {
+    if (name && email && password && phone && address && answer) {
       //   check user is not in database
       const existuser = await userModel.findOne({ email });
       if (existuser) {
@@ -27,7 +27,7 @@ export const registerController = async (req, res) => {
         email,
         phone,
         password: encrptpassword,
-        address,
+        address,answer
       }).save();
 
       return res.status(201).send({
@@ -109,7 +109,54 @@ export const loginController = async (req, res) => {
     }
   };
   
-
+export const forgotPassword=async(req,res)=>{
+try {
+  const {email,answer,newpassword}=req.body;
+   if(!email){
+    return  res.status(400).send({
+      success: false,
+      message: "email is required",
+    
+    });
+   }
+   if(!answer){
+    return  res.status(400).send({
+      success: false,
+      message: "answer is required",
+    
+    });
+   }
+   if(!newpassword){
+    return  res.status(400).send({
+      success: false,
+      message: "fill new password is required",
+    
+    });}
+    // check answer and user
+    const user =await userModel.findOne({email,answer})
+    if(!user){
+      return  res.status(404).send({
+        success: false,
+        message: "User Not found",
+      });
+    }
+    const hashed=await hashedPassword(newpassword);
+    await userModel.findByIdAndUpdate(user._id,{password:hashed});
+    return  res.status(200).send({
+      success: true,
+      message: "Password updated successfully",
+    
+    });
+   
+} catch (error) {
+  console.log("error in forgot password")
+  res.status(500).send({
+    success: false,
+    message:"error in forgotPassword",
+    error,
+  });
+}
+}
   export const testcontroller=async(req,res)=>{
     return res.send("protected route");
   }

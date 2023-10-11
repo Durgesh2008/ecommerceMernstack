@@ -1,11 +1,11 @@
 import axios from "axios";
-import React, { useEffect, useState, useContext } from "react";
+import  { useEffect, useState, useContext } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate,useLocation } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import LoadingButton from "../components/LoadingButton";
-import { SHOPCONTAEXT } from "../context/Shopcontext";
+import LoadingButton from "../../components/LoadingButton";
+import { SHOPCONTAEXT } from "../../context/Shopcontext";
 type Loginform={
   email:string,
   password:string
@@ -68,7 +68,15 @@ const Login = () => {
       
     }
   }, [IsLogin]);
-
+  useEffect(() => {
+  
+    if(Isloading){
+       setTimeout(() => {
+           setIsloading(false);
+       }, 5000);
+    }
+      
+    }, [Isloading])
 
   return (
     <>
@@ -125,7 +133,9 @@ const Login = () => {
               >
                 Signup here
               </Link>
+              <Link className="font-poppins font-semibold text-[#05494F] px-3 text-[12px]" to={'/forget_password'}>Forget Password</Link>
             </div>
+           
           </form>
         </div>
         <ToastContainer />
