@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useContext } from "react";
+import  { useState, useEffect, useContext } from "react";
 import { SHOPCONTAEXT } from "../../context/Shopcontext";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Outlet } from "react-router-dom";
 import Spiner from "../Spiner";
-const PrivateRoute = () => {
+const AdminPrivateRoute = () => {
   const [ok, setok] = useState(false);
   const context = useContext(SHOPCONTAEXT);
   const usertoken = context?.Auth !== null && context?.Auth.token;
@@ -13,7 +13,7 @@ const PrivateRoute = () => {
    
     try {
       const res = await axios.get(
-        `${process.env.REACT_APP_HOST}/api/v1/auth/user-auth`,
+        `${process.env.REACT_APP_HOST}/api/v1/auth/admin-auth`,
         {
           headers: {
             token: usertoken,
@@ -45,4 +45,4 @@ const PrivateRoute = () => {
   );
 };
 
-export default PrivateRoute;
+export default AdminPrivateRoute;

@@ -93,7 +93,8 @@ export const loginController = async (req, res) => {
          name:user.name,
          email:user.email,
          phone:user.phone,
-         address:user.address
+         address:user.address,
+         role:user.role
      },
      token
    })
@@ -158,5 +159,5 @@ try {
 }
 }
   export const testcontroller=async(req,res)=>{
-    return res.send("protected route");
+    return res.status(200).send({ok:true})
   }

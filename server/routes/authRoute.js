@@ -18,5 +18,5 @@ router.get('/user-auth',requireSignIn,(req,res)=>{
    return  res.status(200).send({ok:true})
 })
 // test
-router.get('/test',requireSignIn,isAdmin, testcontroller)
+router.get('/admin-auth',requireSignIn,isAdmin, testcontroller)
 export default router;

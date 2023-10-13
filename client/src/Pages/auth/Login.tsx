@@ -44,7 +44,7 @@ const Login = () => {
           id: data.user.id,
           phone: data.user.phone,
           address: data.user.address,
-          role: data.user.number,
+          role: data.user.role,
           token: data.token,
           Islogin:true
         });

@@ -9,7 +9,7 @@ type ChildrenProps={
     email:string,
     id:string,
     phone:string,
-    address:string,
+    address:string, 
     role:number,
     Islogin:boolean
     token:string
@@ -17,12 +17,16 @@ type ChildrenProps={
 
  type userContext={
     Auth:authUser |null,
-    setAuth:React.Dispatch<React.SetStateAction<authUser | null>>
+    setAuth:React.Dispatch<React.SetStateAction<authUser | null>>,
+    location: string,
+    setlocation:React.Dispatch<React.SetStateAction<string>>,
 }
+
+
 export const SHOPCONTAEXT=createContext<userContext|null>(null);
 const ShopProvider = ({children}:ChildrenProps) => {
   const [Auth, setAuth] = useState<authUser | null>(null)
-
+const [location,setlocation]=useState<string >('');
   useEffect(() => {
    const data=localStorage.getItem('auth');
    if(data!==null){
@@ -32,7 +36,7 @@ const ShopProvider = ({children}:ChildrenProps) => {
   }, [])
   
   return (
-  <SHOPCONTAEXT.Provider value={{Auth,setAuth}}>
+  <SHOPCONTAEXT.Provider value={{Auth,setAuth,location,setlocation}  }>
   {children}
   </SHOPCONTAEXT.Provider>
   )

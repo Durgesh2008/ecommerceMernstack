@@ -7,9 +7,18 @@ import Cart from "./Pages/Cart";
 import Login from "./Pages/auth/Login";
 import Register from "./Pages/auth/Register";
 import Notfound from "./Pages/Notfound";
-import Dashboard from "./Pages/user/Dashboard";
-import PrivateRoute from "./components/Routes/PrivateRoute";
+import User_Dashboard from "./Pages/user/User_Dashboard";
+import UserPrivateRoute from "./components/Routes/UserPrivateRoute";
 import ForgetPassword from "./Pages/auth/ForgetPassword";
+import AdminPrivateRoute from "./components/Routes/AdminPrivateRoute";
+import Admin_DashBoard from "./Pages/Admin/Admin_DashBoard";
+import CreateProduct from "./Pages/Admin/CreateProduct";
+import AlluserList from "./Pages/Admin/AlluserList";
+import CreateCategory from "./Pages/Admin/CreateCategory";
+import AdminProfile from "./Pages/Admin/AdminProfile";
+import UserProfile from "./Pages/user/UserProfile";
+import Orders from "./Pages/user/Orders";
+import Coords from "./components/Hook/useCoords";
 
 const App = () => {
   return (
@@ -23,12 +32,20 @@ const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/forget_password" element={<ForgetPassword />} />
-            <Route path="/user_dashboard" element={<PrivateRoute />} >
-              
-            <Route path="" element={<Dashboard />} />
+            <Route path="/user_dashboard" element={<UserPrivateRoute />} > 
+            <Route path="" element={<User_Dashboard children={<UserProfile/>} />} />
+            <Route path="profile" element={<User_Dashboard children={<UserProfile/>} />} />
+            <Route path="orders" element={<User_Dashboard children={<Orders/>} />} />
+            </Route>
+            <Route path="/admin_dashboard" element={<AdminPrivateRoute/>}>
+            <Route path="" element={<Admin_DashBoard children={<AdminProfile/>} />} />
+            <Route path="create_product" element={ <Admin_DashBoard children={<CreateProduct/>} />} />
+            <Route path="create_category" element={<Admin_DashBoard children={<CreateCategory/>} />} />
+            <Route path="users" element={<Admin_DashBoard children={<AlluserList/>} />} />
             </Route>
             <Route path="*" element={<Notfound />} />
           </Routes>
+         
       </Layout>
      
     </>
