@@ -39,7 +39,7 @@ const AdminPrivateRoute = () => {
     <>
       <ToastContainer />
       {
-        ok?<Outlet/>:<Spiner/>
+        ok?<Outlet/>:<Spiner path=""/>
       }
     </>
   );
