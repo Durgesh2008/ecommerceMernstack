@@ -169,3 +169,32 @@ export const deleteAll = async (req, res) => {
     });
   }
 };
+
+export const FilterProductController=async(req,res)=>{
+  try {
+    const {checked,radio}=req.body;
+    let args={};
+    if(checked.length>0){
+      args.category=checked;
+    }
+    if(radio.length) {
+      args.price={$gte:radio[0],$lte:radio[1]}
+    }
+    if(checked.length>0 || radio.length ){
+      const Product=await productModel.find(args).select("-image");
+      return res.status(200).send({
+        success:true,
+        Product
+      })
+    }
+    return res.status(200).send({
+      success:true,
+      Product:[]
+    })
+  } catch (error) {
+    return res.status(400).send({
+      success: false,
+      message: "Error in Filter  Product ",
+    });
+  }
+}

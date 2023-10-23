@@ -9,7 +9,10 @@ type ProductType = {
   rating: string;
   price: string;
 };
-
+type FilerArgs={
+  checked:string[],
+  radio:number[]
+}
 export const AddProduct=async(item:ProductType)=>{
   const Token = JSON.parse(localStorage.getItem("auth") as string).token ;
 
@@ -34,7 +37,7 @@ export const AddProduct=async(item:ProductType)=>{
         return resdata;
     } catch (error) {
         return error;
-    }
+    } 
 }
 
 export const getAllProducts=async(page:number,limit:number)=>{
@@ -78,6 +81,16 @@ const config = {
     const resdata=await res.data;
     return resdata;
    
+  } catch (error) {
+    return error;
+  }
+}
+
+export const FilterProduct=async({checked,radio}:FilerArgs)=>{
+  try {
+    const res=await axios.post(`${process.env.REACT_APP_HOST}/api/v1/product/filter-product`,{checked,radio});
+    const resdata=await res.data.Product;
+    return resdata;
   } catch (error) {
     return error;
   }

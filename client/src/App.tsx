@@ -21,8 +21,11 @@ import Orders from "./Pages/user/Orders";
 import Coords from "./components/Hook/useCoords";
 import MangeProduct from "./Pages/Admin/MangeProduct";
 import SingleProduct from "./Pages/Admin/SingleProduct";
+import SingleProductDetails from "./Pages/SingleProductDetails";
 
 const App = () => {
+  
+ 
   return (
     <>
         
@@ -44,9 +47,10 @@ const App = () => {
             <Route path="create_product" element={ <Admin_DashBoard children={<CreateProduct/>} />} />
             <Route path="create_category" element={<Admin_DashBoard children={<CreateCategory/>} />} />
             <Route path="users" element={<Admin_DashBoard children={<AlluserList/>} />} />
-            <Route path="mange_product" element={<Admin_DashBoard children={<MangeProduct/>} />} />
-            <Route path="mange_product/:slug" element={<SingleProduct/>} />
+            <Route path="mange_product" element={<Admin_DashBoard children={<MangeProduct path='/admin_dashboard/mange_product'  />} />} />
+            <Route path="mange_product/:slug" element={ <SingleProduct/>} />
             </Route>
+            <Route path="/product/:slug" element={ <SingleProductDetails/>} />
             <Route path="*" element={<Notfound />} />
           </Routes>
          

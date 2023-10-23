@@ -26,31 +26,27 @@ type itemType = {
  
 // ...
 
-const MangeProduct = () => {
+const MangeProduct = ({path}:any) => {
   const [page, setPage] = useState(1);
   const limit =6;
   const [Products, setProducts] = useState<itemType[]>([]);
   const [size, setSize] = useState<number>(1);
 
   const GetProduct = async () => {
-    const res = await getAllProducts(page, limit);
+    const res = await getAllProducts(1, limit);
     setSize(res.totalCount);
-    if(Products.length===0)
     setProducts(res.Product);
-  else{
-    
-      setProducts( [...Products, ...res.Product]);
-    
-  }
+
   }
 
  useEffect(()=>{
   GetProduct();
- },[page])
+ },[])
 
   const fetchMoreData = async () => {
      setPage(pre=>pre+1);
-   
+     const res = await getAllProducts(page+1, limit);
+     setProducts( [...Products, ...res.Product]);
    
   }
 
@@ -64,7 +60,7 @@ const MangeProduct = () => {
       >
         <div className="grid grid-cols-2 md:grid-cols-3 gap-5">
           {Products?.map((item) => {
-            return (<ProductCard key={item._id} item={item} />)
+            return (<ProductCard key={item._id} item={item} path={path}/>)
           })
           }
 
