@@ -158,6 +158,22 @@ try {
   });
 }
 }
-  export const testcontroller=async(req,res)=>{
+ 
+export const testcontroller=async(req,res)=>{
     return res.status(200).send({ok:true})
+  }
+  export const getAlluser=async(req,res)=>{
+    try {
+      const users=await userModel.find({});
+      return res.status(200).send({
+        success: true,
+        users,
+      });
+    } catch (error) {
+      res.status(500).send({
+        success: false,
+        message: "error in fetch all user",
+        error,
+      });
+    }
   }

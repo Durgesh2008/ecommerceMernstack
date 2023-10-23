@@ -46,7 +46,7 @@ export const updateCategoryController =async(req,res)=>{
         const category=await categoryModel.findByIdAndUpdate(id,{name,slug:slugify(name)},{new:true})
         return res.status(200).send({
             success:true,
-            message:`${name} category Updated successfully`,
+            message:`${name}  Updated successfully`,
             category
         })
     } catch (error) {

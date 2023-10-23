@@ -1,5 +1,5 @@
 import express  from "express";
-import { forgotPassword, loginController, registerController, testcontroller } from "../controllers/authcontrollers.js";
+import { forgotPassword, getAlluser, loginController, registerController, testcontroller } from "../controllers/authcontrollers.js";
 import { isAdmin, requireSignIn } from "../middleware/authMiddelware.js";
 
 
@@ -19,4 +19,5 @@ router.get('/user-auth',requireSignIn,(req,res)=>{
 })
 // test
 router.get('/admin-auth',requireSignIn,isAdmin, testcontroller)
+router.get('/alluser',requireSignIn,isAdmin, getAlluser)
 export default router;

@@ -19,6 +19,8 @@ import AdminProfile from "./Pages/Admin/AdminProfile";
 import UserProfile from "./Pages/user/UserProfile";
 import Orders from "./Pages/user/Orders";
 import Coords from "./components/Hook/useCoords";
+import MangeProduct from "./Pages/Admin/MangeProduct";
+import SingleProduct from "./Pages/Admin/SingleProduct";
 
 const App = () => {
   return (
@@ -42,6 +44,8 @@ const App = () => {
             <Route path="create_product" element={ <Admin_DashBoard children={<CreateProduct/>} />} />
             <Route path="create_category" element={<Admin_DashBoard children={<CreateCategory/>} />} />
             <Route path="users" element={<Admin_DashBoard children={<AlluserList/>} />} />
+            <Route path="mange_product" element={<Admin_DashBoard children={<MangeProduct/>} />} />
+            <Route path="mange_product/:slug" element={<SingleProduct/>} />
             </Route>
             <Route path="*" element={<Notfound />} />
           </Routes>
