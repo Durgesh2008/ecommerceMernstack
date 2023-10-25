@@ -3,7 +3,7 @@ import axios from "axios";
 
 
 export const GetAllCategory = async () => {
-  const Token = JSON.parse(localStorage.getItem("auth") as string).token ;
+
   try {
     const res = await axios.get(
       `${process.env.REACT_APP_HOST}/api/v1/category/categories`

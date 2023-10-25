@@ -1,13 +1,14 @@
 import axios from 'axios';
 import  { useEffect, useState } from 'react'
-import { useNavigate , useParams } from 'react-router-dom'
+import {  useParams } from 'react-router-dom'
 import RatingFill from '../Svgs/RatingFill';
 import { FaFacebook } from 'react-icons/fa';
 import { BsMessenger, BsTwitter } from 'react-icons/bs';
 import RatingUnfill from '../Svgs/RatingUnfill ';
+import RelatedProd from './RelatedProd';
 
 
-type itemType = {
+export type itemType = {
   _id: string;
   name: string;
   slug: string;
@@ -27,13 +28,14 @@ type itemType = {
 const SingleProductDetails = () => {
 
     const [ProductData,setProductData]=useState<itemType |null >(null);
+    const [RelatedProduct,setRelatedProduct]=useState<itemType[]>([]);
     const [Like,setLike]=useState(false)
     const [id,setid]=useState('')
   const [Rating,setRating]=useState(0)
 
  
     let { slug } = useParams();
-  const navigate=useNavigate ();
+
     const fetdata=async()=>{
         try {
            const res=await axios.get(`${process.env.REACT_APP_HOST}/api/v1/product/getAll-product/${slug}`)
@@ -41,24 +43,35 @@ const SingleProductDetails = () => {
 
            setProductData(resdata.Product[0]) 
            setid(resdata.Product[0]._id)
+          
         } catch (error) {
         alert("error in single page Product ")
         }
     }
+   
+    const GetRelatedProduct=async()=>{
+      if(ProductData){
+        const {data}=await axios.get(`${process.env.REACT_APP_HOST}/api/v1/product/related-product/${ProductData?._id}/${ProductData?.category._id}`)
+        setRelatedProduct(data.result);
+      }
+  
+    }
 useEffect(()=>{
-    fetdata();
-},[])
+    fetdata(); 
+},[slug])
+useEffect(()=>{
+  GetRelatedProduct();
+},[ProductData?._id])
     const RateArr=[1,1,1,1,1].fill(0,ProductData?.rating,5)
 
   
    
   return (
     <>
-   
-    <section className="text-gray-700 body-font overflow-hidden bg-white">
+<section className="text-gray-700 body-font overflow-hidden bg-white">
   <div className="container px-5 py-24 mx-auto">
     <div className="lg:w-4/5 mx-auto flex flex-wrap">
-      <img alt="ecommerce" className="lg:w-[33%] p-5 w-full object-cover object-center rounded border border-gray-200" src={`${process.env.REACT_APP_HOST}/api/v1/product/product-photo/${ProductData?._id}`} />
+      <img alt="ecommerce" className="lg:w-[33%] p-2 w-full object-contain object-center rounded border border-gray-200" src={`${process.env.REACT_APP_HOST}/api/v1/product/product-photo/${ProductData?._id}`} />
       <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
         <h2 className="text-sm title-font text-gray-500 tracking-widest">{ProductData?.category.name}</h2>
         <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">{ProductData?.name}</h1>
@@ -128,7 +141,7 @@ useEffect(()=>{
       </div>
     </div>
   </div>
- 
+ <RelatedProd products={RelatedProduct} />
 </section>
     </>
   )

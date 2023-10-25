@@ -32,7 +32,7 @@ const App = () => {
       <Layout  title='Ecommerce App' description="Mern Stack Project" keywords="Mern,node,React,Mongodb,Tailwind,Typescript" >
           <Routes>
             <Route   path="/" element={<Home />} />
-            <Route path="/categories" element={<Categories />} />
+       
             <Route path="/cart" element={<Cart />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />

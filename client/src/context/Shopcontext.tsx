@@ -1,4 +1,5 @@
 import React, { ReactNode, createContext, useState,useEffect } from 'react'
+import { itemType } from '../Pages/SingleProductDetails'
 
 
 type ChildrenProps={
@@ -14,14 +15,30 @@ type ChildrenProps={
     Islogin:boolean
     token:string
 }
+type ItemType = {
+  _id: string,
+  name: string,
+  slug: string,
+  description: string,
+  price: number,
+  category: string,
+  quantity: number,
+  shipping: boolean,
+  rating: number,
+}
 
  type userContext={
     Auth:authUser |null,
     setAuth:React.Dispatch<React.SetStateAction<authUser | null>>,
     location: string,
     setlocation:React.Dispatch<React.SetStateAction<string>>,
-    AllCategory:[],
-    setAllCategory:React.Dispatch<React.SetStateAction<[]>>
+    keyword:string,
+    setKeyword:React.Dispatch<React.SetStateAction<string>>,
+    serachdata:ItemType[],
+    setSearchData:React.Dispatch<React.SetStateAction<ItemType[]>>,
+    cart:itemType[],
+    setcart:React.Dispatch<React.SetStateAction<itemType[]>>,
+
 }
 
 
@@ -29,7 +46,9 @@ export const SHOPCONTAEXT=createContext<userContext|null>(null);
 const ShopProvider = ({children}:ChildrenProps) => {
   const [Auth, setAuth] = useState<authUser | null>(null)
 const [location,setlocation]=useState<string >('');
-const [AllCategory, setAllCategory] = useState<[]>([]);
+const  [keyword,setKeyword]=useState<string>('');
+const [serachdata,setSearchData]=useState<ItemType[]>([])
+const [cart,setcart]=useState<itemType[]>([])
   useEffect(() => {
    const data=localStorage.getItem('auth');
    if(data!==null){
@@ -39,7 +58,7 @@ const [AllCategory, setAllCategory] = useState<[]>([]);
   }, [])
   
   return (
-  <SHOPCONTAEXT.Provider value={{Auth,setAuth,location,setlocation,AllCategory,setAllCategory}  }>
+  <SHOPCONTAEXT.Provider value={{Auth,setAuth,location,setlocation,keyword,setKeyword,serachdata,setSearchData,cart,setcart}  }>
   {children}
   </SHOPCONTAEXT.Provider>
   )

@@ -198,3 +198,56 @@ export const FilterProductController=async(req,res)=>{
     });
   }
 }
+
+
+export const SearchProductController=async(req,res)=>{
+  try {
+    const {keyword}=req.params;
+    if(keyword!==''){
+      const result=await productModel.find({
+        $or:[
+          {
+            name:{$regex:keyword,$options:"i"}
+          },
+          {
+            description:{$regex:keyword,$options:"i"},
+          }
+        ]
+      }).select("-image")
+      return res.status(200).send({
+        success: true,
+        result
+      })
+    }else{
+     return res.status(400).send({
+        success: false,
+        message: "Error in Search  Product ",
+      })
+    }
+    
+  } catch (error) {
+    return res.status(400).send({
+      success: false,
+      message: "Error in Search  Product ",
+    });
+  }
+}
+
+export const RelatedProductController=async(req,res)=>{
+  try {
+    const {pid,cid}=req.params;
+    const result=await productModel.find({
+      category:cid,
+      _id:{$ne:pid}
+    }).select("-image").limit(3).populate("category")
+    return res.status(200).send({
+      success:true,
+      result
+    })
+  } catch (error) {
+    return res.status(400).send({
+      success: false,
+      message: "Error in while fetching Related  Product ",
+    });
+  }
+}

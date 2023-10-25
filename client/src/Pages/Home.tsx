@@ -5,6 +5,7 @@ import { Price } from "../dataJson/Price";
 import MangeProduct from "./Admin/MangeProduct";
 import { FilterProduct } from "../Api/ProductApicall";
 import ProductCard from "../components/ProductCard";
+import { json } from "stream/consumers";
 type AllCategoryPrps = {
   name: string;
   _id: string;
@@ -35,15 +36,17 @@ const Home = () => {
     let data = await GetAllCategory();
     setAllCategory(data);
   };
+
   const filterData = async () => {
     const data = {
       checked: selectedValues,
       radio: RadioValue,
     };
     const res = await FilterProduct(data);
-    console.log(res)
     setProducts(res);
   };
+
+
   useEffect(() => {
     getcategory();
   }, []);
@@ -114,7 +117,9 @@ const Home = () => {
             Clear
           </button>
         </form>
-        <div className="flex-[3] ">
+       {
+       !(context?.serachdata && context?.serachdata.length  > 0) ?
+       <div className="flex-[3] ">
           {selectedValues.length > 0 || RadioValue.length > 0 ? (
             <div className="grid grid-cols-2 md:grid-cols-3 gap-5">
               {Products?.map((item: any) => {
@@ -126,7 +131,18 @@ const Home = () => {
           ) : (
             <MangeProduct path="/product" />
           )}
+        </div>:
+        <div className="flex-[3]">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-5">
+              {context?.serachdata?.map((item: any) => {
+                return (
+                  <ProductCard key={item._id} item={item} path="/product" />
+                );
+              })}
+            </div>
         </div>
+        }
+      
       </div>
     </>
   );

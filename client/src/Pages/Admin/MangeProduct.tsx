@@ -33,7 +33,7 @@ const MangeProduct = ({path}:any) => {
   const [size, setSize] = useState<number>(1);
 
   const GetProduct = async () => {
-    const res = await getAllProducts(1, limit);
+    const res = await getAllProducts(page, limit);
     setSize(res.totalCount);
     setProducts(res.Product);
 
