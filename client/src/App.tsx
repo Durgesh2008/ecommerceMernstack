@@ -2,7 +2,6 @@ import React from "react";
 import Layout from "./components/Layout/Layout";
 import {  Route, Routes } from "react-router-dom";
 import Home from "./Pages/Home";
-import Categories from "./Pages/Categories";
 import Cart from "./Pages/Cart";
 import Login from "./Pages/auth/Login";
 import Register from "./Pages/auth/Register";
