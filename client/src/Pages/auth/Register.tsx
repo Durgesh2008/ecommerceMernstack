@@ -65,8 +65,8 @@ console.log(context?.location)
 
   return (
     <>
-      <section className="bg-[#D4F3F6] h-screen flex  flex-col justify-center ">
-        <h1 className=" font-roboto mx-auto mb-3 text-lg font-semibold text-[#05494F] ">
+      <section className="bg-[#D4F3F6] py-3  flex  flex-col justify-center ">
+        <h1 className=" font-roboto mx-auto my-3 text-lg font-semibold text-[#05494F] ">
           Sign Up
         </h1>
         <div className=" mx-auto w-full max-w-md rounded-lg bg-white p-7 drop-shadow-lg dark:bg-neutral-700">

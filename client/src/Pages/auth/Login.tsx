@@ -6,6 +6,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import LoadingButton from "../../components/LoadingButton";
 import { SHOPCONTAEXT } from "../../context/Shopcontext";
+import { GoogleLogin } from "@react-oauth/google";
 type Loginform = {
   email: string;
   password: string;
@@ -58,6 +59,12 @@ const Login = () => {
     }
   };
 
+  const onSuccess = (response: any) => {
+    console.log("success", response);
+  };
+  const onfailure = () => {
+    console.log("fail");
+  };
   useEffect(() => {
     if (IsLogin) {
       localStorage.setItem("auth", JSON.stringify(context?.Auth));
@@ -74,8 +81,8 @@ const Login = () => {
 
   return (
     <>
-      <section className="bg-[#D4F3F6] h-screen flex  flex-col justify-center ">
-        <h1 className=" font-roboto mx-auto mb-3 text-lg font-semibold text-[#05494F] ">
+      <section className="bg-[#D4F3F6] py-4 h-[86vh] flex  flex-col justify-center ">
+        <h1 className=" font-roboto mx-auto my-3 text-lg font-semibold text-[#05494F] ">
           Sign In
         </h1>
         <div className=" mx-auto w-full max-w-md rounded-lg bg-white p-7 drop-shadow-lg dark:bg-neutral-700">
@@ -97,7 +104,6 @@ const Login = () => {
                 Email
               </label>
             </div>
-
             <div className="relative mb-7">
               <input
                 type="password"
@@ -114,7 +120,6 @@ const Login = () => {
                 Password
               </label>
             </div>
-
             {/* <!--Submit button--> */}
             <div className="w-full mx-auto ">
               {!Isloading ? (
@@ -128,6 +133,11 @@ const Login = () => {
                 <LoadingButton />
               )}
             </div>
+            <GoogleLogin
+              onSuccess={onSuccess}
+              onError={onfailure}
+            />
+            
             <div className="flex items-center justify-center font-inter ">
               <span className="text-sm font-normal">New User?</span>
               <Link

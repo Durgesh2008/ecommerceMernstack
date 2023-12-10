@@ -17,7 +17,6 @@ import CreateCategory from "./Pages/Admin/CreateCategory";
 import AdminProfile from "./Pages/Admin/AdminProfile";
 import UserProfile from "./Pages/user/UserProfile";
 import Orders from "./Pages/user/Orders";
-import Coords from "./components/Hook/useCoords";
 import MangeProduct from "./Pages/Admin/MangeProduct";
 import SingleProduct from "./Pages/Admin/SingleProduct";
 import SingleProductDetails from "./Pages/SingleProductDetails";

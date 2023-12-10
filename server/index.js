@@ -5,6 +5,7 @@ import ConnectToMongoose from './Db.js';
 import authRoutes from './routes/authRoute.js'
 import categoryRoute from './routes/categoryRoute.js'
 import productRoute from './routes/productRoute.js'
+import cartRoute from './routes/cartRoute.js'
 dotenv.config() 
 
 const app=express();
@@ -16,6 +17,7 @@ app.use(express.json())
 app.use('/api/v1/auth',authRoutes)
 app.use('/api/v1/category',categoryRoute)
 app.use('/api/v1/product',productRoute)
+app.use('/api/v1/cart',cartRoute)
 // DB connection
 ConnectToMongoose();
 

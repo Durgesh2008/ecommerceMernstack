@@ -5,7 +5,6 @@ import { Price } from "../dataJson/Price";
 import MangeProduct from "./Admin/MangeProduct";
 import { FilterProduct } from "../Api/ProductApicall";
 import ProductCard from "../components/ProductCard";
-import { json } from "stream/consumers";
 type AllCategoryPrps = {
   name: string;
   _id: string;
