@@ -5,7 +5,6 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useForm } from "react-hook-form";
 import LoadingButton from "../../components/LoadingButton";
-import useCoords from "../../components/Hook/useCoords";
 import { SHOPCONTAEXT } from "../../context/Shopcontext";
 type Regiaterform = {
   name: string;
@@ -26,7 +25,6 @@ const Register = () => {
   } = useForm<Regiaterform>();
 
   const navigate = useNavigate();
-  const address=useCoords()
 const context=useContext(SHOPCONTAEXT);
 
   const onSubmit = async (input: Regiaterform) => {
@@ -55,7 +53,7 @@ const context=useContext(SHOPCONTAEXT);
       toast.error(error.message);
     }
   };
-console.log(context?.location)
+
   useEffect(() => {
     if (IsRegister) {
       navigate("/login");
@@ -120,7 +118,6 @@ console.log(context?.location)
             <div className="relative z-0 w-full mb-6 group">
               <input
                 type="text"
-              value={context?.location}
                 {...register("address", { required: true })}
                 className="block py-2.5 font-poppins px-0 w-full text-base text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
               />

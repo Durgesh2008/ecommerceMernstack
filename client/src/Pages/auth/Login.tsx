@@ -35,7 +35,7 @@ const Login = () => {
         { email: input.email, password: input.password }
       );
       const data = await res.data;
-
+   console.log(data)
       if (data.success) {
         setIsLogin(data.success);
         context?.setAuth({
@@ -46,7 +46,9 @@ const Login = () => {
           address: data.user.address,
           role: data.user.role,
           token: data.token,
-          Islogin: true,
+          Islogin: true, 
+          productId:res.data?.productId?res.data?.productId:[],
+         
         });
         setIsloading(false);
         toast.success("Login Successfully");

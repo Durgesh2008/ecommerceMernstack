@@ -1,7 +1,4 @@
 import axios from "axios";
-
-
-
 export const GetAllCategory = async () => {
 
   try {

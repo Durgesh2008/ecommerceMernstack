@@ -1,38 +1,35 @@
+import mongoose from "mongoose";
 import cartModel from "../models/cartModel.js";
 import userModel from "../models/userModel.js";
-
+ 
 
 export  const postCartData=async(req,res)=>{
     try {
-        const { name, description, price, category, quantity, shipping, rating,image,userid } =req.body;
-        if (
-            !name ||
-            !description ||
-            !price ||
-            !category ||
-            !quantity ||
-            !shipping ||
-            !rating
-          ) {
-            return res.status(400).send({
+        const { name, description, price, category, quantity, shipping, rating,userid,pid } =req.body;
+        const user=await userModel.findById(userid);
+          const cart=new cartModel({ name, description, price, category, quantity, shipping, rating,userid,pid }); 
+          await cart.save();
+          if (!user) {
+            return res.status(404).send({
               success: false,
-              message: "missing filed",
+              message: "User not found",
             });
           }
-
-          const cart=new cartModel({...req.body});
-          await cart.save();
-          const user=await userModel.findById({_id:userid});
-          user.carts.push(cart._id)
+          await  user.carts.push(cart._id)
+          await user.productId.push(pid)
+          await user.save();
           return res.status(200).send({
             success: true,
             message: "Cart added successfully",
-            product,
+            cart
           });
+        
+         
+        
     } catch (error) {
         return res.status(500).send({
             success: false,
-            message: "Error in addind cart",
+            message: "Error in adding cart",
           });
     }
 
@@ -40,27 +37,45 @@ export  const postCartData=async(req,res)=>{
 
 export const getCartData=async(req,res)=>{
     try {
-      const {userid}=req.body;
-      const carts=await userModel.findById({_id:userid}).papulate('carts').exec().carts;
+      const {userid}=req.query;
+       const user = await userModel.findById(userid).populate('carts');
+       if (!user) {
+        return res.status(404).send({
+            success: false,
+            message: "User not found",
+        });
+    }
+
+    const carts = user.carts;
+    const productId=user.productId;
       return res.status(200).send({
         success: true,
-        message: "Cart added successfully",
-         carts ,
+         carts ,productId
       });
        
     }catch (error) {
       return res.status(500).send({
           success: false,
-          message: "Error in addind cart",
+          message: "Error in getting cart",
         });
 }
 }
 
 export const deleteCartData=async(req,res)=>{
+
   try {
-    const {userid,cartid}=req.body;
-    await cartModel.findOneAndDelete({_id:cartid});
-    await  userModel.findByIdAndUpdate(userid, { $pull: { carts: cartid } },{ new: true })
+    const {userid,cartid,pid}=req.body;
+    await cartModel.findOneAndDelete(cartid);
+    await userModel.findByIdAndUpdate(
+      userid,
+      {
+        $pull: {
+          carts:cartid,
+          productId: pid,
+        },
+      },
+      { new: true }
+    );
     return res.status(200).send({
       success: true,
       message: "Cart deleted successfully",
@@ -76,7 +91,6 @@ export const deleteCartData=async(req,res)=>{
 
 
 export const multipleDelete=async(req,res)=>{
-  // cartids=['cart1id','cart2id']
   const {userid,cartIdsToDelete}=req.body;
   try {
     await cartModel.deleteMany({ _id: { $in: cartIdsToDelete } })

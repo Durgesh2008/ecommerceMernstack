@@ -2,7 +2,7 @@ import express from 'express'
 import {requireSignIn } from '../middleware/authMiddelware.js';
 import { deleteCartData, getCartData, multipleDelete, postCartData } from '../controllers/cartcontroller.js';
 const router=express.Router();
-
+ 
 router.post('/postCart_data',requireSignIn,postCartData)
 router.get('/getCart_data',requireSignIn,getCartData)
 router.delete('/deleteCart_data',requireSignIn,deleteCartData)

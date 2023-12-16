@@ -4,10 +4,10 @@ const cartSchema = mongoose.Schema({
       type: String,
       required: true,
     },
-    slug: {
+    pid:{
       type: String,
-      lowercase: true,
-      require: true,
+      required: true,
+      unique:true
     },
     description: {
       type: String,
@@ -18,18 +18,14 @@ const cartSchema = mongoose.Schema({
       require: true,
     },
     category: {
-      type: mongoose.ObjectId,
-      ref: "categoryModel",
-      required: true,
+      type: String,
+     
     },
     quantity: {
       type: Number,
       require: true,
     },
-    image: {
-      data: Buffer,
-      contentType: String,
-    },
+    
     shipping: {
       type: Boolean,
     },
@@ -37,6 +33,10 @@ const cartSchema = mongoose.Schema({
       type: Number,
       required: true,
     },
+    count:{
+      type:Number,
+      default:1
+    }
   },{timestamps:true});
   
   export default mongoose.model("cartModel", cartSchema);

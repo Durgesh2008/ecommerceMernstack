@@ -33,6 +33,10 @@ const userSchema = mongoose.Schema(
       default: 0, //0- user 1-admin
     },
     carts: [{ type: mongoose.ObjectId, ref: "cartModel" }],
+    productId: {
+      type: Array,
+      default: [],
+    },
   },
   { timestamps: true }
 );
