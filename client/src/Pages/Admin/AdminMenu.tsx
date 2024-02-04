@@ -24,7 +24,7 @@ const AdminMenu = () => {
 
       <aside
         id="default-sidebar"
-        className={` top-[18%] md:top-[10%] ${isopen?'translate-x-[8px]':'-translate-x-full'}  md:left-0  fixed z-40 w-64 h-screen transition-all ease-in duration-500 -translate-x-full sm:translate-x-0`}
+        className={` top-[5%] md:top-[4%] ${isopen?'translate-x-[8px]':'-translate-x-full'}  md:left-0  absolute z-40 w-64 h-screen transition-all ease-in duration-500 -translate-x-full sm:translate-x-0`}
         
       >
         <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">

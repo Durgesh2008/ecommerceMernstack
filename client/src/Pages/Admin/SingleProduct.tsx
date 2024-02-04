@@ -68,7 +68,7 @@ const SingleProduct = () => {
   };
 
   return (
-    loading ?<SingleCartskeleton/> :
+    
      <>
       <section className="text-gray-700 body-font overflow-hidden bg-white">
         <div className="container px-5 py-24 mx-auto">
@@ -196,7 +196,7 @@ const SingleProduct = () => {
         {Isupdate ? (
           <UpdateProduct item={ProductData} setIsupdate={setIsupdate} />
         ) : (
-          <><Cardp/></>
+          <></>
         )}
       </section>
     </>

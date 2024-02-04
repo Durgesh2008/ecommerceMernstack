@@ -9,7 +9,7 @@ const Admin_DashBoard = ({children}:AdminChild) => {
     <>
       <AdminMenu/>
 
-      <div className="p-4 sm:ml-64">
+      <div className="p-4 sm:ml-64 ">
         <div className="p-4 drop-shadow-lg rounded-lg dark:border-gray-700">
           
           {children}
